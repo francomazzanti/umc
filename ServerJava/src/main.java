@@ -14,7 +14,7 @@ public class main {
 				BufferedReader inPut= new BufferedReader(new InputStreamReader(a1.getInputStream()));
 				BufferedWriter out= new BufferedWriter(new OutputStreamWriter(a1.getOutputStream()));
 
-				String pippo="<HTML>Ciao riccardo</HTML>";
+				String pippo="<HTML>  CIao </HTML>";
 				int conta=pippo.getBytes().length;
 
 
