@@ -27,19 +27,26 @@ public class main {
 				out.write("Last-modified: Fri, 09 Aug 1996 14:21:40 GMT\r\n");
 				out.write("\r\n");
 				out.write(pippo);
-				String s;
-				while((s=inPut.readLine())!=null) {
-				System.out.println(s);
+
+			//	String s;
+		//		while(!(s=inPut.readLine()).isEmpty()) {
+		//			System.out.println(s);
+				//	if(s.isEmpty())
+					//	break;
+		//		}
 				
+				String bandiera = inPut.readLine();
+				while (!bandiera.isEmpty()) {
+					System.out.println(bandiera);
+					bandiera = inPut.readLine();
 				}
 
-				
 				out.close();
 				inPut.close();
 				a1.close();
 
 			}
-		} catch (IOException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
