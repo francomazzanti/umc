@@ -17,14 +17,13 @@ public static void main ( String args[]){
 		   String leggo=input.readLine();
 		   System.out.println(leggo);
 		   
-		    
-		   input.close();
 		   output.close();
-		   
+		   input.close();
+		   sock.close();
 	} catch (Exception e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
-		}
+	}
 
 	
 	

@@ -11,16 +11,19 @@ public static void main ( String args[]){
 		while(true) {	
 		sock=new ServerSocket(7777);
 			Socket sock1= sock.accept(); 
+			BufferedReader input=new BufferedReader(new InputStreamReader(sock1.getInputStream()));
+			BufferedReader inputKey=new BufferedReader(new InputStreamReader(System.in));
+		    BufferedWriter output=new BufferedWriter(new OutputStreamWriter(sock1.getOutputStream())) ;
 		   System.out.println("Connessione al server riuscita!");
-		   BufferedReader input=new BufferedReader(new InputStreamReader(sock1.getInputStream()));
-		   BufferedReader inputKey=new BufferedReader(new InputStreamReader(System.in));
-		   BufferedWriter output=new BufferedWriter(new OutputStreamWriter(sock1.getOutputStream()));
-		   
+		
+		    Thread.sleep(2000);
 		    output.write("ciao, sto mandando, questo è il messaggio /n");
 		   System.out.println("Ho mandato");
 		   
- 		   input.close();
+ 		  
 		   output.close();
+		   input.close();
+		   sock.close();
 		}
 		   
 	} catch (Exception e) {
