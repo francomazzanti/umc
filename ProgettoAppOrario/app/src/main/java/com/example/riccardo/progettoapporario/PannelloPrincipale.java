@@ -119,7 +119,8 @@ public class PannelloPrincipale extends ActionBarActivity {
 
     public void OnAggiornaOrario(View v){
 
-        String string = ";Lunedi;Martedi;Mercoledi;Giovedi;Venerdi;Sabato;";
+        String string = ";Lunedi;Martedi;Mercoledi;Giovedi;Venerdi;Sabato;" +
+                "8:00/9:00;fisica;Ita;Mate;Infor;Stocazzo;Religione;";
         FileOutputStream fos = null;
         try {
             fos = openFileOutput("Orario.txt", Context.MODE_PRIVATE);
