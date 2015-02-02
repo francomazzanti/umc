@@ -20,7 +20,8 @@
         android:text="Orario Completo"
         android:id="@+id/button2"
         android:layout_centerVertical="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:onClick="OnOrarioCompleto"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -29,7 +30,8 @@
         android:id="@+id/button3"
         android:layout_below="@+id/button2"
         android:layout_alignParentStart="true"
-        android:layout_alignEnd="@+id/button2" />
+        android:layout_alignEnd="@+id/button2"
+        android:onClick="OnAggiornaOrario"/>
 
     <Button
         android:layout_width="wrap_content"

@@ -1,5 +1,6 @@
 package com.example.riccardo.progettoapporario;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
@@ -11,6 +12,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 //savedInstanceState
 
@@ -52,7 +57,7 @@ public class PannelloPrincipale extends ActionBarActivity {
         // leggere o creare
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
       //  boolean silent = settings.getBoolean("silentMode", false);
-         int set =settings.getInt("SpinPosition",0);
+         int set =settings.getInt("SpinPosition", 0);
         spinner.setSelection(set);
 
     }
@@ -112,7 +117,34 @@ public class PannelloPrincipale extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void OnAggiornaOrario(View v){
 
+        String string = ";Lunedi;Martedi;Mercoledi;Giovedi;Venerdi;Sabato;";
+        FileOutputStream fos = null;
+        try {
+            fos = openFileOutput("Orario.txt", Context.MODE_PRIVATE);
+            fos.write(string.getBytes());
+            fos.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    public void OnOrarioCompleto(View v){
+
+        Intent intent = new Intent(this, OrarioCompletoActivity.class);
+        // EditText editText = (EditText) findViewById(R.id.edit_message);
+        // String message = editText.getText().toString();
+        // intent.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intent);
+
+
+    }
 
 
 }
