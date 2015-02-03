@@ -1,5 +1,6 @@
 package com.example.riccardo.progettoapporario;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,11 +17,15 @@ import android.widget.Toast;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
 
 //savedInstanceState
 
 public class PannelloPrincipale extends ActionBarActivity {
     public static final String PREFS_NAME = "MyPrefsFile";
+
+
 
 
     @Override
@@ -31,7 +36,7 @@ public class PannelloPrincipale extends ActionBarActivity {
         Spinner spinner = (Spinner)findViewById(R.id.spinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 this,
-                android.R.layout.simple_spinner_item,
+                R.layout.layoutspinner,R.id.textSpinner,
                 new String[]{"5AIF","5BIF","paperino","topolino"}
         );
         spinner.setAdapter(adapter);
@@ -120,7 +125,9 @@ public class PannelloPrincipale extends ActionBarActivity {
     public void OnAggiornaOrario(View v){
 
         String string = ";Lunedi;Martedi;Mercoledi;Giovedi;Venerdi;Sabato;" +
-                "8:00/9:00;fisica;Ita;Mate;Infor;Stocazzo;Religione;";
+                "8:00;fisica\nY2;Ita\nY6;Mate\nY8;Sistemi\nX11;Informatica\nY4;Religione\nY4;"+
+                "9:00;GPO\nX1;Sistemi\nW04;Storia\nY05;Italiano\nZ4;Informatica\nY11;Mate\nY06;"+
+                "10:00;Inglese\nY2;Informatia\nK01;Sistemi\nY04;TPS\nY02;Ed fisica\nPalestra;Italiano\nK1;";
         FileOutputStream fos = null;
         try {
             fos = openFileOutput("Orario.txt", Context.MODE_PRIVATE);
@@ -134,6 +141,22 @@ public class PannelloPrincipale extends ActionBarActivity {
         }
 
 
+    }
+
+    public void popUp(View v){
+
+        // 1. Instantiate an AlertDialog.Builder with its constructor
+        AlertDialog.Builder builder;
+        builder = new AlertDialog.Builder(this);
+        Calendar c = Calendar.getInstance();
+        String time = c.getTime().toString();
+// 2. Chain together various setter methods to set the dialog characteristics
+        builder.setMessage("La tua Classe non ha variazioni orario per oggi");
+        builder.setTitle("Variazione Orario del "+time);
+
+// 3. Get the AlertDialog from create()
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     public void OnOrarioCompleto(View v){

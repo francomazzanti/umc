@@ -15,6 +15,9 @@ import java.io.IOException;
 
 public class OrarioCompletoActivity extends ActionBarActivity {
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +43,7 @@ public class OrarioCompletoActivity extends ActionBarActivity {
         }
 
         String [] gridelement =  readString.split(";");
-        ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,gridelement);
+        ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,R.layout.custom_layout_gridview,R.id.textcustom,gridelement);
 
         // sostituiamo ListView con GridView
         GridView gridView = (GridView) findViewById(R.id.gridView);
@@ -71,4 +74,5 @@ public class OrarioCompletoActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }
