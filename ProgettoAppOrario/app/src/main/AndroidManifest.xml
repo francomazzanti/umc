@@ -24,6 +24,10 @@
             android:name=".OrarioCompletoActivity"
             android:label="@string/title_activity_orario_completo" >
         </activity>
+        <activity
+            android:name=".Activity_OrarioGiorno"
+            android:label="@string/title_activity_activity__orario_giorno" >
+        </activity>
     </application>
 
 </manifest>

@@ -10,18 +10,18 @@
         android:layout_height="wrap_content"
         android:text="Orario Giorno"
         android:id="@+id/button"
-        android:layout_alignParentStart="true"
-        android:layout_above="@+id/button2"
-        android:layout_alignEnd="@+id/button3" />
+        android:layout_below="@+id/button3"
+        android:layout_alignStart="@+id/button3" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Orario Completo"
         android:id="@+id/button2"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true"
-        android:onClick="OnOrarioCompleto"/>
+        android:onClick="OnOrarioCompleto"
+        android:layout_marginBottom="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/button3" />
 
     <Button
         android:layout_width="wrap_content"
@@ -30,9 +30,10 @@
         android:id="@+id/button3"
 
         android:onClick="OnAggiornaOrario"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="91dp" />
+        android:layout_below="@+id/spinner"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp" />
+
 
     <Button
         android:layout_width="wrap_content"
@@ -40,19 +41,17 @@
         android:text="Variazione Orario"
         android:id="@+id/button4"
         android:onClick="popUp"
-        android:layout_alignTop="@+id/button"
-        android:layout_alignParentEnd="true"
-        android:layout_alignBottom="@+id/button" />
+        android:layout_alignTop="@+id/button2"
+        android:layout_toEndOf="@+id/button3" />
 
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/spinner"
         android:visibility="visible"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
         android:clickable="true"
-        />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout >

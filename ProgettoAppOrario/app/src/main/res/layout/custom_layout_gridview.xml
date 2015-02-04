@@ -10,7 +10,7 @@
         android:layout_width="fill_parent"
         android:layout_height="50px"
         android:gravity="center"
-        android:textSize="17px"
+        android:textSize="40px"
         android:textStyle="bold"
         android:id="@+id/textcustom"
 

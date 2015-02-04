@@ -37,7 +37,7 @@ public class PannelloPrincipale extends ActionBarActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 this,
                 R.layout.layoutspinner,R.id.textSpinner,
-                new String[]{"5AIF","5BIF","paperino","topolino"}
+                new String[]{"5AIF","5BIF","4AIF","4ART"}
         );
         spinner.setAdapter(adapter);
 
@@ -127,7 +127,11 @@ public class PannelloPrincipale extends ActionBarActivity {
         String string = ";Lunedi;Martedi;Mercoledi;Giovedi;Venerdi;Sabato;" +
                 "8:00;fisica\nY2;Ita\nY6;Mate\nY8;Sistemi\nX11;Informatica\nY4;Religione\nY4;"+
                 "9:00;GPO\nX1;Sistemi\nW04;Storia\nY05;Italiano\nZ4;Informatica\nY11;Mate\nY06;"+
-                "10:00;Inglese\nY2;Informatia\nK01;Sistemi\nY04;TPS\nY02;Ed fisica\nPalestra;Italiano\nK1;";
+                "10:00;Inglese1\nY2;Informatia\nK01;Sistemi\nY04;TPS\nY02;Ed fisica\nPalestra;Italiano\nK1;"+
+                "11:00;Inglese\nY2;Informatia\nK01;Sistemi\nY04;TPS\nY02;Ed fisica\nPalestra;Italiano\nK1;"+
+                "12:00;Inglese\nY2;Informatia\nK01;Sistemi\nY04;TPS\nY02;Ed fisica\nPalestra;Italiano\nK1;"+
+                "13:00;Inglese\nY2;Informatia\nK01;Sistemi\nY04;TPS\nY02;Ed fisica\nPalestra;Italiano\nK1;";
+
         FileOutputStream fos = null;
         try {
             fos = openFileOutput("Orario.txt", Context.MODE_PRIVATE);
@@ -162,6 +166,17 @@ public class PannelloPrincipale extends ActionBarActivity {
     public void OnOrarioCompleto(View v){
 
         Intent intent = new Intent(this, OrarioCompletoActivity.class);
+        // EditText editText = (EditText) findViewById(R.id.edit_message);
+        // String message = editText.getText().toString();
+        // intent.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intent);
+
+
+    }
+
+    public void OnOrarioGiorno(View v){
+
+        Intent intent = new Intent(this,Activity_OrarioGiorno.class);
         // EditText editText = (EditText) findViewById(R.id.edit_message);
         // String message = editText.getText().toString();
         // intent.putExtra(EXTRA_MESSAGE, message);
