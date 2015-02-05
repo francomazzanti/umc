@@ -151,8 +151,8 @@ public class DownloadPlusConveterPlusDetecCHar {
 						key=broken_text1[0];
 						String map;
 						map=broken_text1[1]; 
-					String	key1=key.replace("^","");
-					String key2=key1.replaceAll("\\s+","");
+						String	key1=key.replace("^","");
+						String key2=key1.replaceAll("\\s+","");
 						mapHash.put(key2,map);
 						extractedText = reader.readLine();
 					}
@@ -161,12 +161,12 @@ public class DownloadPlusConveterPlusDetecCHar {
 			}
 		}
 		System.out.println(mapHash);
- 		BufferedReader reader1 = new BufferedReader(new InputStreamReader(System.in));
+		BufferedReader reader1 = new BufferedReader(new InputStreamReader(System.in));
 		String inputKey=reader1.readLine();
-		
+
 		if(mapHash.containsKey(inputKey)) {
 			System.out.println(mapHash.get(inputKey));
-			
+
 		}
 
 	}

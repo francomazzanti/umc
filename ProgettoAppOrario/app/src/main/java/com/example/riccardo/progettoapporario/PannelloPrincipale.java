@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,9 +15,17 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -154,8 +163,9 @@ public class PannelloPrincipale extends ActionBarActivity {
         builder = new AlertDialog.Builder(this);
         Calendar c = Calendar.getInstance();
         String time = c.getTime().toString();
+        Spinner spinnerId = (Spinner)findViewById(R.id.spinner);
 // 2. Chain together various setter methods to set the dialog characteristics
-        builder.setMessage("La tua Classe non ha variazioni orario per oggi");
+        builder.setMessage(SendMesVariazioneOrario((String)spinnerId.getSelectedItem()));
         builder.setTitle("Variazione Orario del "+time);
 
 // 3. Get the AlertDialog from create()
@@ -182,6 +192,76 @@ public class PannelloPrincipale extends ActionBarActivity {
         // intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);
 
+
+    }
+
+
+    public String SendMesVariazioneOrario(String Classe){
+        Socket socket = null;
+        DataOutputStream dataOutputStream = null;
+        DataInputStream dataInputStream = null;
+        String result = "";
+        SharedPreferences settings = getSharedPreferences("MyPrefsFile", 0);
+        //  boolean silent = settings.getBoolean("silentMode", false);
+        String set =settings.getString("DefaultIp","146.48.107.165");
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+
+        StrictMode.setThreadPolicy(policy);
+
+        try {
+            socket = new Socket(set, 1800);
+            dataOutputStream = new DataOutputStream(socket.getOutputStream());
+            dataInputStream = new DataInputStream(socket.getInputStream());
+            dataOutputStream.writeUTF(Classe.toString()+"\n");
+
+
+            byte[] mybytearray = new byte[ 256];
+
+
+
+             dataInputStream.read(mybytearray);
+
+            result =  new String(mybytearray);
+        } catch (UnknownHostException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        finally{
+            if (socket != null){
+                try {
+                    socket.close();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+
+            if (dataOutputStream != null){
+                try {
+                    dataOutputStream.close();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+
+            if (dataInputStream != null){
+                try {
+                    dataInputStream.close();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        }
+
+
+
+        return result;
 
     }
 

@@ -17,7 +17,7 @@ public class SettingsActivity extends ActionBarActivity {
         setContentView(R.layout.activity_settings);
         SharedPreferences settings = getSharedPreferences("MyPrefsFile", 0);
         //  boolean silent = settings.getBoolean("silentMode", false);
-        String set =settings.getString("DefaultIp","146.48.2.2");
+        String set =settings.getString("DefaultIp","146.48.107.165");
         EditText editt= (EditText)   findViewById(R.id.editText);
         editt.setText(set);
     }
@@ -47,7 +47,7 @@ public class SettingsActivity extends ActionBarActivity {
     public void  ImpostaPred(View v){
          EditText editt= (EditText)   findViewById(R.id.editText);
 
-         editt.setText("146.48.2.2");
+         editt.setText("146.48.107.165");
     }
 
 
