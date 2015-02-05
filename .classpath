@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="Chat/src"/>
+	<classpathentry kind="src" path="DocConverter/src"/>
+	<classpathentry kind="src" path="PDF box split images/src"/>
+	<classpathentry kind="src" path="ProgettoAppOrario/app/build/generated/source/buildConfig/debug"/>
+	<classpathentry kind="src" path="ProgettoAppOrario/app/build/generated/source/buildConfig/test/debug"/>
+	<classpathentry kind="src" path="ProgettoAppOrario/app/build/generated/source/r/debug"/>
+	<classpathentry kind="src" path="ProgettoAppOrario/app/src/main/java"/>
+	<classpathentry kind="src" path="ProgettoPDF/src"/>
+	<classpathentry kind="src" path="ServerJava/src"/>
+	<classpathentry kind="lib" path="ProgettoAppOrario/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/classes.jar"/>
+	<classpathentry kind="lib" path="ProgettoAppOrario/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/classes.jar"/>
+	<classpathentry kind="lib" path="ProgettoAppOrario/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/libs/internal_impl-21.0.3.jar"/>
+	<classpathentry kind="lib" path="ProgettoAppOrario/app/build/intermediates/pre-dexed/debug/classes-7260bb02c3e03b3aebb40cddf904b72c614a8dcd.jar"/>
+	<classpathentry kind="lib" path="ProgettoAppOrario/app/build/intermediates/pre-dexed/debug/classes-cb32855157ed48894b9ef5bdaafd58519bc54df6.jar"/>
+	<classpathentry kind="lib" path="ProgettoAppOrario/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-cd8cb47f299e9cd964897ca429fa3845723d683d.jar"/>
+	<classpathentry kind="lib" path="ProgettoAppOrario/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-34a27aacad1a74191fc7a1591a49daf445deb25a.jar"/>
+	<classpathentry kind="lib" path="ProgettoAppOrario/gradle/wrapper/gradle-wrapper.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="ServerJava/bin"/>
+</classpath>

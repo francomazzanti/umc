@@ -1,0 +1,7 @@
+;Lunedi;Martedi;Mercoledi;Giovedi;Venerdi;Sabato;
+8:00;fisica#Y2;Ita#Y6;Mate#Y8;Sistemi#X11;Informatica#Y4;Religione#Y4;
+9:00;GPO#X1;Sistemi#W04;Storia#Y05;Italiano#Z4;Informatica#Y11;Mate#Y06;
+10:00;Inglese1#Y2;Informatia#K01;Sistemi#Y04;TPS#Y02;Ed fisica#Palestra;Italiano#K1;
+11:00;Inglese#Y2;Informatia#K01;Sistemi#Y04;TPS#Y02;Ed fisica#Palestra;Italiano#K1;
+12:00;Inglese#Y2;Informatia#K01;Sistemi#Y04;TPS#Y02;Ed fisica#Palestra;Italiano#K1;
+13:00;Inglese#Y2;Informatia#K01;Sistemi#Y04;TPS#Y02;Ed fisica#Palestra;Italiano#K1;

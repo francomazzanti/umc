@@ -3,7 +3,7 @@ import java.io.*;
 
 public class main {
 
-	public static void main (String args[])  {
+	/*	public static void main (String args[])  {
 		ServerSocket a;
 		try {
 			a = new ServerSocket(7777);
@@ -34,7 +34,7 @@ public class main {
 				//	if(s.isEmpty())
 					//	break;
 		//		}
-				
+
 				String bandiera = inPut.readLine();
 				while (!bandiera.isEmpty()) {
 					System.out.println(bandiera);
@@ -51,6 +51,18 @@ public class main {
 			e.printStackTrace();
 		}
 
+
+	}*/
+
+	public static void main (String args[])  {
+		Thread1800 threadVariazione = new Thread1800();
+		Thread thread = new Thread(threadVariazione);
+		thread.start();
+		System.out.println("Avvio thread Variazione orario");
+		Thread1801 threadOrarioCompleto = new Thread1801();
+		Thread thread2 = new Thread(threadOrarioCompleto);
+		thread2.start();
+		System.out.println("Avvio thread Orario Completo");
 
 	}
 
