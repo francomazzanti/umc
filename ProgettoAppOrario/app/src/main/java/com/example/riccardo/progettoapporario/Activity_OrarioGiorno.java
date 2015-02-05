@@ -103,6 +103,9 @@ public class Activity_OrarioGiorno extends ActionBarActivity {
             e.printStackTrace();
         }
         int contatore = 0;
+
+        readString =  readString.replaceAll("\n","");
+        readString =  readString.replaceAll("#","\n");
         String [] element =  readString.split(";");
             String [] result=new String[12];
         for(int i=1;i<7;i++){

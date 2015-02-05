@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
+import android.os.Message;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -24,6 +26,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Calendar;
@@ -36,6 +39,32 @@ public class PannelloPrincipale extends ActionBarActivity {
 
 
 
+    Handler mHandler;
+
+    Handler mHandlerOrarioSettimanale;
+    public void messageDisplay(String servermessage)
+    {
+        AlertDialog.Builder builder;
+        builder = new AlertDialog.Builder(this);
+        builder.setMessage(servermessage);
+        Calendar c = Calendar.getInstance();
+        String time = c.getTime().toString();
+        builder.setTitle("Variazione Orario del "+time);
+
+// 3. Get the AlertDialog from create()
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+
+    public void messageDisplayOrario(String servermessage)
+    {
+        Toast.makeText(
+                getApplicationContext(),
+                servermessage,
+                Toast.LENGTH_LONG
+        ).show();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +79,18 @@ public class PannelloPrincipale extends ActionBarActivity {
         );
         spinner.setAdapter(adapter);
 
+        mHandler = new Handler() {
+            public void handleMessage(Message msg){
+                messageDisplay(msg.obj.toString());
+            }
+        };
 
+
+        mHandlerOrarioSettimanale = new Handler() {
+            public void handleMessage(Message msg){
+                messageDisplayOrario(msg.obj.toString());
+            }
+        };
 
        // Spinner spinnerId = (Spinner)findViewById(R.id.spinner);
        // int text = spinnerId.getSelectedItemPosition();
@@ -133,7 +173,7 @@ public class PannelloPrincipale extends ActionBarActivity {
 
     public void OnAggiornaOrario(View v){
 
-        String string = ";Lunedi;Martedi;Mercoledi;Giovedi;Venerdi;Sabato;" +
+       /* String string = ";Lunedi;Martedi;Mercoledi;Giovedi;Venerdi;Sabato;" +
                 "8:00;fisica\nY2;Ita\nY6;Mate\nY8;Sistemi\nX11;Informatica\nY4;Religione\nY4;"+
                 "9:00;GPO\nX1;Sistemi\nW04;Storia\nY05;Italiano\nZ4;Informatica\nY11;Mate\nY06;"+
                 "10:00;Inglese1\nY2;Informatia\nK01;Sistemi\nY04;TPS\nY02;Ed fisica\nPalestra;Italiano\nK1;"+
@@ -152,25 +192,19 @@ public class PannelloPrincipale extends ActionBarActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+*/
 
 
+        new Thread(new ClientThreadAggOrario()).start();
     }
 
     public void popUp(View v){
 
         // 1. Instantiate an AlertDialog.Builder with its constructor
-        AlertDialog.Builder builder;
-        builder = new AlertDialog.Builder(this);
-        Calendar c = Calendar.getInstance();
-        String time = c.getTime().toString();
-        Spinner spinnerId = (Spinner)findViewById(R.id.spinner);
-// 2. Chain together various setter methods to set the dialog characteristics
-        builder.setMessage(SendMesVariazioneOrario((String)spinnerId.getSelectedItem()));
-        builder.setTitle("Variazione Orario del "+time);
 
-// 3. Get the AlertDialog from create()
-        AlertDialog dialog = builder.create();
-        dialog.show();
+        new Thread(new ClientThreadVariazioneOrario()).start();
+
+
     }
 
     public void OnOrarioCompleto(View v){
@@ -196,72 +230,202 @@ public class PannelloPrincipale extends ActionBarActivity {
     }
 
 
-    public String SendMesVariazioneOrario(String Classe){
-        Socket socket = null;
-        DataOutputStream dataOutputStream = null;
-        DataInputStream dataInputStream = null;
-        String result = "";
-        SharedPreferences settings = getSharedPreferences("MyPrefsFile", 0);
-        //  boolean silent = settings.getBoolean("silentMode", false);
-        String set =settings.getString("DefaultIp","146.48.107.165");
-
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-
-        StrictMode.setThreadPolicy(policy);
-
-        try {
-            socket = new Socket(set, 1800);
-            dataOutputStream = new DataOutputStream(socket.getOutputStream());
-            dataInputStream = new DataInputStream(socket.getInputStream());
-            dataOutputStream.writeUTF(Classe.toString()+"\n");
 
 
-            byte[] mybytearray = new byte[ 256];
+    class ClientThreadVariazioneOrario implements Runnable {
+
+        @Override
+        public void run() {
+
+            try {
+                SharedPreferences settings = getSharedPreferences("MyPrefsFile", 0);
+                //  boolean silent = settings.getBoolean("silentMode", false);
+                String set =settings.getString("DefaultIp","146.48.107.165");
+                InetAddress serverAddr = InetAddress.getByName(set);
+
+                Socket  socketVarazioneOrario = new Socket(serverAddr, 1800);
 
 
 
-             dataInputStream.read(mybytearray);
+                Spinner spinnerId = (Spinner)findViewById(R.id.spinner);
+// 2. Chain together various setter methods to set the dialog characteristics
 
-            result =  new String(mybytearray);
-        } catch (UnknownHostException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+
+                DataOutputStream dataOutputStream = null;
+                DataInputStream dataInputStream = null;
+                String result = "";
+
+
+                try {
+
+                    dataOutputStream = new DataOutputStream(socketVarazioneOrario.getOutputStream());
+                    dataInputStream = new DataInputStream(socketVarazioneOrario.getInputStream());
+                    dataOutputStream.writeUTF((String)spinnerId.getSelectedItem().toString()+"\n");
+
+
+                    byte[] mybytearray = new byte[ 256];
+
+
+
+                    dataInputStream.read(mybytearray);
+
+                    result =  new String(mybytearray);
+                } catch (UnknownHostException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                finally{
+                    if (socketVarazioneOrario != null){
+                        try {
+                            socketVarazioneOrario.close();
+                        } catch (IOException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                    }
+
+                    if (dataOutputStream != null){
+                        try {
+                            dataOutputStream.close();
+                        } catch (IOException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                    }
+
+                    if (dataInputStream != null){
+                        try {
+                            dataInputStream.close();
+                        } catch (IOException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+
+                Message serverMessage= Message.obtain();
+                serverMessage.obj=result;
+                mHandler.sendMessage(serverMessage);
+
+
+            } catch (UnknownHostException e1) {
+                e1.printStackTrace();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+
         }
-        finally{
-            if (socket != null){
+
+    }
+
+    class ClientThreadAggOrario implements Runnable {
+
+        @Override
+        public void run() {
+
+            try {
+                SharedPreferences settings = getSharedPreferences("MyPrefsFile", 0);
+                //  boolean silent = settings.getBoolean("silentMode", false);
+                String set =settings.getString("DefaultIp","146.48.107.165");
+                InetAddress serverAddr = InetAddress.getByName(set);
+
+                Socket    socketOrario = new Socket(serverAddr, 1801);
+
+
+
+                Spinner spinnerId = (Spinner)findViewById(R.id.spinner);
+// 2. Chain together various setter methods to set the dialog characteristics
+
+
+                DataOutputStream dataOutputStream = null;
+                DataInputStream dataInputStream = null;
+                String result = "";
+
+
                 try {
-                    socket.close();
+
+                    dataOutputStream = new DataOutputStream(socketOrario.getOutputStream());
+                    dataInputStream = new DataInputStream(socketOrario.getInputStream());
+                    dataOutputStream.writeUTF((String)spinnerId.getSelectedItem().toString()+"\n");
+
+
+                    byte[] mybytearray = new byte[2024];
+
+                    int letti =0;
+                    while((letti = dataInputStream.read(mybytearray))>0){
+
+                    }
+
+
+                    result =  new String(mybytearray);
+                } catch (UnknownHostException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
                 } catch (IOException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
+                finally{
+                    if (socketOrario != null){
+                        try {
+                            socketOrario.close();
+                        } catch (IOException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                    }
+
+                    if (dataOutputStream != null){
+                        try {
+                            dataOutputStream.close();
+                        } catch (IOException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                    }
+
+                    if (dataInputStream != null){
+                        try {
+                            dataInputStream.close();
+                        } catch (IOException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                Message serverMessage= Message.obtain();
+                if(result.length()>40){
+                    serverMessage.obj="File Scaricato Correttamente";
+                    FileOutputStream fos = null;
+                    try {
+                        fos = openFileOutput("Orario.txt", Context.MODE_PRIVATE);
+                        fos.write(result.getBytes());
+                        fos.close();
+
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }else{
+
+                    serverMessage.obj=result;
+
+                }
+                mHandlerOrarioSettimanale.sendMessage(serverMessage);
+
+
+            } catch (UnknownHostException e1) {
+                e1.printStackTrace();
+            } catch (IOException e1) {
+                e1.printStackTrace();
             }
 
-            if (dataOutputStream != null){
-                try {
-                    dataOutputStream.close();
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            }
-
-            if (dataInputStream != null){
-                try {
-                    dataInputStream.close();
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            }
         }
-
-
-
-        return result;
 
     }
 

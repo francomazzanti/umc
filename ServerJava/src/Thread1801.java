@@ -23,7 +23,7 @@ public class Thread1801 implements Runnable {
 				//Thread.sleep(2000);
 				
 				String clientSentenceClasse = input.readLine();
-				File f = new File("resource/"+clientSentenceClasse+".txt");
+				File f = new File("resource/"+clientSentenceClasse.trim()+".txt");
 				if(f.exists() && !f.isDirectory()) { 
 					/* do something */ 
 					byte[] mybytearray = new byte[(int) f.length()];
@@ -34,6 +34,14 @@ public class Thread1801 implements Runnable {
 				     // sock.close();
 				
 				      System.out.println("Ho mandato");
+				}else{
+					//il file non esiste
+					
+					String risposta = new String("Siamo Spiacenti Orario inesistente");
+					  os.write(risposta.getBytes());
+				      os.flush();
+
+					
 				}
 				
 				//output.write("ciao, sto mandando, questo è il messaggio /n");

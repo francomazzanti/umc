@@ -41,6 +41,8 @@ public class OrarioCompletoActivity extends ActionBarActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        readString =  readString.replaceAll("\n","");
+        readString =  readString.replaceAll("#","\n");
 
         String [] gridelement =  readString.split(";");
         ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,R.layout.custom_layout_gridview,R.id.textcustom,gridelement);
